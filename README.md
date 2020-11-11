@@ -1,2 +1,2 @@
 # ptwithclaudia
-An online PT subscription service from Claudia
+An online Personal Trainer subscription service from Claudia Bradley
