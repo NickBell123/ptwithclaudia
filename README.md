@@ -1,2 +1,9 @@
 # PT With Claudia
 ### An online Personal Trainer subscription service from Claudia Bradley
+
+This site is intended to give Claudia a deciated online precense to encourage all type of people with a fitness goal to reach out and/or sign up to a subscription.
+
+
+
+### Credits
+[https://www.quickdatabasediagrams.com/] QuickDBD.com Database schema diagram.
