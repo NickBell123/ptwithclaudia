@@ -6,4 +6,4 @@ This site is intended to give Claudia a deciated online precense to encourage al
 
 
 ### Credits
-[https://www.quickdatabasediagrams.com/] QuickDBD.com Database schema diagram.
+[QuickDBD.com](https://www.quickdatabasediagrams.com/) Database schema diagram.
