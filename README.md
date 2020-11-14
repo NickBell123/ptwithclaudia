@@ -3,6 +3,8 @@
 
 This site is intended to give Claudia a deciated online precense to encourage all type of people with a fitness goal to reach out and/or sign up to a subscription.
 
+###
+Add ability to login from social media accounts
 
 
 ### Credits
