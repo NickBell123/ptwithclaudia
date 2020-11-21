@@ -9,3 +9,4 @@ Add ability to login from social media accounts
 
 ### Credits
 [QuickDBD.com](https://www.quickdatabasediagrams.com/) Database schema diagram.
+“Created my free logo at [LogoMakr.com](https//:www.logomkr.com).
