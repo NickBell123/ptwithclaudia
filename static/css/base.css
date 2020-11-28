@@ -5,3 +5,6 @@ html {
 .carousel-inner {
     max-height: 90vh;
 }
+ body {
+     padding-top: 164px;
+ }
