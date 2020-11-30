@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extratitle %}{{ blog_post.title }}{% endblock extratitle %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center">{{ blog_post.title }}</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <p>{{ blog_post.body }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ blog_post.image }}
+        </div>
+    </div>
+</div>
+{% endblock %}

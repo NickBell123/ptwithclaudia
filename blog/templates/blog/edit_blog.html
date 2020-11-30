@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extratitle %}Edit Blog{% endblock extratitle %}
+{% block content %}
+<h1>Edit blog post:</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6"> 
+                <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p}}
+                    <div>
+                        <p>
+                            <button type="submit">Edit blog</button>
+                        </p>
+                    </div>
+                </form>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
