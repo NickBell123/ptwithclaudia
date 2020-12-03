@@ -54,3 +54,10 @@ def edit_blog(request, blog_id):
     """A view to see single blog details"""
    
     return render(request, 'blog/edit_blog.html', context)
+
+
+def delete_blog(request, blog_id):
+    blog_post = get_object_or_404(Blog_post, pk=blog_id)
+    if request.method == 'POST':
+        blog_posts.delete()
+        return redirect('blog')

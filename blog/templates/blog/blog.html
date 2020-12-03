@@ -5,14 +5,18 @@
 <div class="container">
     <h1 class="text-center">Hello Blog!</h1>
 </div>
+
 <div class="container col-lg-8">
 {% for blog in blog_posts %}
     <a href="{% url 'blog_detail' blog.id %}">
     <h3>{{ blog.title }}</h3>
     </a>
     <p>{{ blog.body }}</p>
-    <p><a href="{% url 'edit_blog' blog.id %}"><button>Edit</button></a></p>
+    
+    <p><a href="{% url 'edit_blog' blog.id %}"><button>Edit</button></a>
+    <a href="{% url 'delete' blog.id %}"><button>delete</button></a></p>
 {% endfor %}
+<a href="{% url 'add' %}"><button>Add a post</button></a>
 </div>
 
 

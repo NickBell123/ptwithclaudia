@@ -11,11 +11,12 @@
                 {{ form.as_p}}
                     <div>
                         <p>
-                            <button type="submit">Add an item</button>
+                            <button type="submit">Add a post</button>    
                         </p>
                     </div>
                 </form>
-                {% endblock %}
+                <a href={% url 'blog' %}><button>Back</button></a>            
             </div>
         </div>
     </div>
+{% endblock %}
