@@ -2,21 +2,25 @@
 {% load static %}
 {% block extratitle %}Blog{% endblock extratitle %}
 {% block content %}
-<div class="container">
+<div class="container pt-5">
     <h1 class="text-center">Hello Blog!</h1>
 </div>
 
-<div class="container col-lg-8">
-{% for blog in blog_posts %}
-    <a href="{% url 'blog_detail' blog.id %}">
-    <h3>{{ blog.title }}</h3>
-    </a>
-    <p>{{ blog.body }}</p>
-    
-    <p><a href="{% url 'edit_blog' blog.id %}"><button>Edit</button></a>
-    <a href="{% url 'delete' blog.id %}"><button>delete</button></a></p>
-{% endfor %}
-<a href="{% url 'add' %}"><button>Add a post</button></a>
+<div class="container">
+    <div class="row">
+        <div class="col-8 offset-2">
+            {% for blog in blog_posts %}
+            <a href="{% url 'blog_detail' blog.id %}">
+            <h3>{{ blog.title }}</h3>
+            </a>
+            <p>{{ blog.body }} - Posted: {{ blog.date_posted}}</p>
+            
+            <p><a href="{% url 'edit_blog' blog.id %}"><button>Edit</button></a>
+            <a href="{% url 'delete' blog.id %}"><button>delete</button></a></p>
+            {% endfor %}
+            <a href="{% url 'add' %}"><button>Add a post</button></a>
+        </div>
+    </div>
 </div>
 
 

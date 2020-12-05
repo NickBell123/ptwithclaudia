@@ -4,9 +4,9 @@ from .forms import BlogPostForm
 # Create your views here.
 
 def blog_posts(request):
-
     """ A veiw for the blog posts page """
-    blog_posts = Blog_post.objects.all()
+    blog_posts = Blog_post.objects.all().order_by('date_posted').reverse()
+    
     context = {
         'blog_posts': blog_posts
     }
@@ -58,6 +58,5 @@ def edit_blog(request, blog_id):
 
 def delete_blog(request, blog_id):
     blog_post = get_object_or_404(Blog_post, pk=blog_id)
-    if request.method == 'POST':
-        blog_posts.delete()
-        return redirect('blog')
+    blog_post.delete()
+    return redirect('blog')

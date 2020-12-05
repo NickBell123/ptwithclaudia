@@ -11,6 +11,7 @@ class BlogPostForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'author': forms.Select(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
+            
             'image_url': forms.TextInput(attrs={'class': 'form-control'}),
             
         }

@@ -1,35 +1,17 @@
 
 {% extends 'base.html' %}
 
-
-    {% block body %}
-
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="allauth-form-container pt-5">
+      {% block inner_content %}
+      {% endblock %}
+      <div>
     </div>
-    {% endif %}
+  </div>
+</div>
 
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-        {% endif %}
-      </ul>
-    </div>
-    {% block content %}
-    {% endblock %}
-    {% endblock %}
-    {% block extra_body %}
-    {% endblock %}
-  
+{% endblock  %}
+    
