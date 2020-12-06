@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Blog_post
-from .forms import BlogPostForm
+from .forms import BlogPostForm, CategoryBlogForm
 # Create your views here.
 
 def blog_posts(request):
@@ -25,6 +25,30 @@ def add_post(request):
         'form': form
     }
     return render(request, 'blog/add_blog_post.html', context)
+
+
+def add_category(request):
+    if request.method == 'POST':
+        form = CategoryBlogForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
+    
+    form = CategoryBlogForm
+    context = {
+        'form': form
+    }
+    return render(request, 'blog/add_category.html', context)
+
+
+def category_view(request, name):
+    category_posts = Blog_post.objects.filter(category=name)
+
+    context = {
+        'name': name,
+        'category_posts': category_posts
+    }
+    return render(request, 'blog/category_view.html', context)
 
 
 def blog_detail(request, blog_id):

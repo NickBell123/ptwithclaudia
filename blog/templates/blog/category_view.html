@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block extratitle %}Blog{% endblock extratitle %}
+{% block extratitle %}{{ name }} - Category View{% endblock extratitle %}
 {% block content %}
 <div class="container pt-5">
-    <h1 class="text-center">Hello Blog!</h1>
+    <h1 class="text-center">{{ name }} - Category View</h1>
     <p>
         <a href="{% url 'add' %}"><button>Add a post</button></a>
         <a href="{% url 'add_category' %}"><button>Add a category</button></a>
+        <a href={% url 'blog' %}><button>Back</button></a>
     </p>
 </div>
 
 <div class="container">
     <div class="row">
         <div class="col-8 offset-2">
-            {% for blog in blog_posts %}
+            {% for blog in category_posts %}
             <a href="{% url 'blog_detail' blog.id %}">
-            <h3>{{ blog.title }}</h3></a>
-            <a href="{% url 'category_view' blog.category %}"<span class="text-capitalize font-weight-bolder"> {{ blog.category }}</span></a>
+            <h3>{{ blog.title }}</h3></a><span class="text-capitalize font-weight-bolder"> {{ blog.category }}</span>
             
             <p>{{ blog.body|slice:":200" }} - Posted: {{ blog.date_posted}}</p>
             
