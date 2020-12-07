@@ -23,7 +23,7 @@ def likes_view(request, pk):
 
 def add_post(request):
     if request.method == 'POST':
-        form = BlogPostForm(request.POST)
+        form = BlogPostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('blog')
@@ -75,7 +75,7 @@ def blog_detail(request, blog_id):
 def edit_blog(request, blog_id):
     blog_post = get_object_or_404(Blog_post, pk=blog_id)
     if request.method == 'POST':
-        form = BlogPostForm(request.POST, instance=blog_post)
+        form = BlogPostForm(request.POST, request.FILES, instance=blog_post)
         if form.is_valid():
             form.save()
             return redirect('blog')

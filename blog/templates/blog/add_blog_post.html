@@ -8,9 +8,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6"> 
-                <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p}}
+                <form method="POST" action="{% url 'add' %}"enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p}}
                     <div>
                         <p>
                             <button type="submit">Add a post</button>    

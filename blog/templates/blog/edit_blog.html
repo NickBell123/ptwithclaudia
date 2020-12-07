@@ -11,10 +11,11 @@
             <div class="col-md-6"> 
                 <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
+                {{ form.media}}
                 {{ form.as_p}}
                     <div>
                         <p>
-                            <button type="submit">Edit blog</button>
+                            <button type="submit">Update Blog</button>
                         </p>
                     </div>
                 </form>

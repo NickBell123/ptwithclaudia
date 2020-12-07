@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <p>{{ blog_post.body }}</p>
+            <p>{{ blog_post.body|safe }}</p>
             <form method="POST" action="{% url 'likes' blog_post.pk %}">
             {% csrf_token %}
             <p>

@@ -21,20 +21,22 @@
 {% endif %}
 <div class="container">
     <div class="row">
-        <div class="col-8 offset-2">
-            {% for blog in blog_posts %}
+    {% for blog in blog_posts %}
+        <div class="col-md-8">
             <a href="{% url 'blog_detail' blog.id %}">
             <h3>{{ blog.title }}</h3></a>
-            <a href="{% url 'category_view' blog.category %}"<span class="text-capitalize font-weight-bolder"> {{ blog.category }}</span></a>
+            <a href="{% url 'category_view' blog.category %}"><span class="text-capitalize font-weight-bolder"> {{ blog.category }}</span></a>
             
-            <p>{{ blog.body|slice:":200" }} - Posted: {{ blog.date_posted}}</p>
+            <p>{{ blog.body|safe }} - Posted: {{ blog.date_posted}}</p>
             {% if user.is_superuser %}
             <p><a href="{% url 'edit_blog' blog.id %}"><button>Edit</button></a>
             <a href="{% url 'delete' blog.id %}"><button>delete</button></a></p>
             {% endif %}
-            {% endfor %}
-            
         </div>
+        <div class="col-md-4">
+            <img src="{% static '../media/' %}{{ blog.image }}" class="img-fluid" alt="Responsive image"> 
+        </div>
+    {% endfor %}
     </div>
 </div>
 
