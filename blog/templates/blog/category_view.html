@@ -3,14 +3,16 @@
 {% block extratitle %}{{ name }} - Category View{% endblock extratitle %}
 {% block content %}
 <div class="container pt-5">
-    <h1 class="text-center">{{ name }} - Category View</h1>
+    <h1 class="text-center text-capitalize">{{ name }} - Category View</h1>
     <p>
+        {% if user.is_superuser %}
         <a href="{% url 'add' %}"><button>Add a post</button></a>
         <a href="{% url 'add_category' %}"><button>Add a category</button></a>
+        {% endif %}
         <a href={% url 'blog' %}><button>Back</button></a>
     </p>
 </div>
-
+{% if category_posts %}
 <div class="container">
     <div class="row">
         <div class="col-8 offset-2">
@@ -18,15 +20,19 @@
             <a href="{% url 'blog_detail' blog.id %}">
             <h3>{{ blog.title }}</h3></a><span class="text-capitalize font-weight-bolder"> {{ blog.category }}</span>
             
-            <p>{{ blog.body|slice:":200" }} - Posted: {{ blog.date_posted}}</p>
-            
+            <p>{{ blog.body|slice:":200" }} - Posted: {{ blog.date_posted }}</p>
+            {% if user.is_superuser %}
             <p><a href="{% url 'edit_blog' blog.id %}"><button>Edit</button></a>
             <a href="{% url 'delete' blog.id %}"><button>delete</button></a></p>
+            {% endif %}
             {% endfor %}
             
         </div>
     </div>
 </div>
+{% else %}
+<h2 class="text-danger text-center">Sorry this page does not exist!</h2>
+{% endif %}
 
 
 {% endblock %}

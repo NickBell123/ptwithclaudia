@@ -17,7 +17,10 @@ class Blog_post(models.Model):
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='blog_likes')
     
+    def get_total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title + ' : ' + str(self.author)

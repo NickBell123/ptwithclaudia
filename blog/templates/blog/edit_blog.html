@@ -5,6 +5,7 @@
 <div class="container pt-5">
     <h1>Edit blog post:</h1>
 </div>
+{% if user.is_superuser %}
     <div class="container">
         <div class="row">
             <div class="col-md-6"> 
@@ -21,4 +22,7 @@
             </div>
         </div>
     </div>
+{% else %}
+    <h2 class="text-danger text-center">This page is restricted!</h2>
+{% endif %}
 {% endblock %}

@@ -4,12 +4,21 @@
 {% block content %}
 <div class="container pt-5">
     <h1 class="text-center">Hello Blog!</h1>
-    <p>
-        <a href="{% url 'add' %}"><button>Add a post</button></a>
-        <a href="{% url 'add_category' %}"><button>Add a category</button></a>
-    </p>
-</div>
-
+</div> 
+{% if user.is_superuser %}
+<div class="container">
+    <div class="dropdown">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Blog Post Controls
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="{% url 'add' %}">Add a Post</a>
+        <a class="dropdown-item" href="{% url 'add_category' %}">Add a Category</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+    </div>
+    </div>
+</div>    
+{% endif %}
 <div class="container">
     <div class="row">
         <div class="col-8 offset-2">
@@ -19,9 +28,10 @@
             <a href="{% url 'category_view' blog.category %}"<span class="text-capitalize font-weight-bolder"> {{ blog.category }}</span></a>
             
             <p>{{ blog.body|slice:":200" }} - Posted: {{ blog.date_posted}}</p>
-            
+            {% if user.is_superuser %}
             <p><a href="{% url 'edit_blog' blog.id %}"><button>Edit</button></a>
             <a href="{% url 'delete' blog.id %}"><button>delete</button></a></p>
+            {% endif %}
             {% endfor %}
             
         </div>
