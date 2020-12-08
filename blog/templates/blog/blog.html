@@ -5,6 +5,7 @@
 <div class="container pt-5">
     <h1 class="text-center">Hello Blog!</h1>
 </div> 
+
 {% if user.is_superuser %}
 <div class="container">
     <div class="dropdown">
@@ -17,28 +18,53 @@
         <a class="dropdown-item" href="#">Something else here</a>
     </div>
     </div>
-</div>    
+</div>
+<br>    
 {% endif %}
 <div class="container">
-    <div class="row">
+    
     {% for blog in blog_posts %}
-        <div class="col-md-8">
-            <a href="{% url 'blog_detail' blog.id %}">
-            <h3>{{ blog.title }}</h3></a>
-            <a href="{% url 'category_view' blog.category %}"><span class="text-capitalize font-weight-bolder"> {{ blog.category }}</span></a>
-            
-            <p>{{ blog.body|safe }} - Posted: {{ blog.date_posted}}</p>
-            {% if user.is_superuser %}
-            <p><a href="{% url 'edit_blog' blog.id %}"><button>Edit</button></a>
-            <a href="{% url 'delete' blog.id %}"><button>delete</button></a></p>
-            {% endif %}
+        {% if forloop.counter|divisibleby:2 %}
+        <div class="row">
+            <div class="col-md-8">
+                <a href="{% url 'blog_detail' blog.id %}">
+                <h3>{{ blog.title }}</h3></a>
+                <a href="{% url 'category_view' blog.category %}"><span class="text-capitalize font-weight-bolder"> {{ blog.category }}</span></a>
+                <p>{{ blog.body|safe }} - Posted: {{ blog.date_posted}}</p>
+                {% if user.is_superuser %}
+                <p><a href="{% url 'edit_blog' blog.id %}"><button>Edit</button></a>
+                <a href="{% url 'delete' blog.id %}"><button>delete</button></a></p>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <img src="{% static '../media/' %}{{ blog.image }}" class="img-fluid" alt="Responsive image"> 
+            </div>
         </div>
-        <div class="col-md-4">
-            <img src="{% static '../media/' %}{{ blog.image }}" class="img-fluid" alt="Responsive image"> 
+        <hr>
+        {% else %}
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{% static '../media/' %}{{ blog.image }}" class="img-fluid" alt="Responsive image"> 
+            </div>
+            <div class="col-md-8">
+                <a href="{% url 'blog_detail' blog.id %}">
+                <h3>{{ blog.title }}</h3></a>
+                <a href="{% url 'category_view' blog.category %}"><span class="text-capitalize font-weight-bolder"> {{ blog.category }}</span></a>
+                <p>{{ blog.body|safe }} - Posted: {{ blog.date_posted}}</p>
+                {% if user.is_superuser %}
+                <p><a href="{% url 'edit_blog' blog.id %}"><button>Edit</button></a>
+                <a href="{% url 'delete' blog.id %}"><button>delete</button></a></p>
+                {% endif %}
+            </div>
         </div>
+        <hr>
+        {% endif %}
     {% endfor %}
-    </div>
+    
 </div>
+            
+        
+   
 
 
 {% endblock %}

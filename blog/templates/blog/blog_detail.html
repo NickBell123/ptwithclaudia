@@ -16,13 +16,23 @@
             </p>
             </form>
             <p><a href={% url 'blog' %}><button>Back</button></a></p>
-        </div>
-           
-    </div>
-    <div class="row">
+        </div>           
         <div class="col-md-4">
-            {{ blog_post.image }}
+            <img src="{% static '../media/' %}{{ blog_post.image }}" class="img-fluid" alt="Responsive image">
         </div>
+    </div>
+    <hr>
+    <div class="container">
+        <h5>Comments...</h5>
+        {% if not blog_post.comments.all %}
+            <p class="text-muted">No comments yet.</p>
+        {% else %}
+            {% for comment in blog_post.comments.all %}
+                <p>{{comment.name}} - {{comment.comment_date}}</p>
+                <p>{{comment.body}}
+            {% endfor %}
+        {% endif %}
+            <p class="text-muted"><a href="{% url 'add_comment' blog_post.pk %}">leave a comment here.</a></p>
     </div>
 </div>
 {% endblock %}

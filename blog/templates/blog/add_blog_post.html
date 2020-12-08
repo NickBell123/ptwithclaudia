@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6"> 
-                <form method="POST" action="{% url 'add' %}"enctype="multipart/form-data">
+                <form method="POST" action="{% url 'add' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p}}
                     <div>
