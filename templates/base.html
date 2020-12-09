@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
     {% block meta %}
         <meta http-equiv="X-UA-compatible" content="ie=edge">
         <meta charset="utf-8">
@@ -36,7 +35,7 @@
   <body>
   
     <header class="container-fluid fixed-top">
-      <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
+      <div id="topnav" class="row pt-lg-2 d-none d-lg-flex">
           <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
               <a href="{% url 'home' %}" class="nav-link main-logo-link">
                   <img class="d-block w-100" src="{% static '../media/ptcb_logo3.png' %}" alt="First slide">
@@ -45,7 +44,7 @@
           <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
              <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
+                    <a class="nav-link active" href="{% url 'home' %}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'store' %}">My Store</a>
@@ -81,7 +80,7 @@
                       </div>
                   </li>
                   <li class="list-inline-item">
-                      <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="">
+                      <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'cart' %}">
                           <div class="text-center">
                               <div><i class="fas fa-shopping-bag fa-lg"></i></div>
                               <p class="my-0">

@@ -2,9 +2,13 @@ html {
     height: 100%;
 }
 
+#topnav {
+    background-color: whitesmoke;
+}
+
 .carousel-inner {
     max-height: 70vh;
 }
  body {
-     padding-top: 164px;
+     padding-top: 110px;
  }
