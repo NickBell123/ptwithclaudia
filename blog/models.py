@@ -25,3 +25,12 @@ class Blog_post(models.Model):
 
     def __str__(self):
         return self.title + ' : ' + str(self.author)
+
+class Comment(models.Model):
+    post = models.ForeignKey(Blog_post, related_name="comments", on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, null=True, blank=True)
+    body = RichTextField(blank=True, null=True)
+    date_posted = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.post.title + ' : ' + str(self.name)

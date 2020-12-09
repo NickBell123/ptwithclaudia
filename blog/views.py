@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from .models import Blog_post
-from .forms import BlogPostForm, CategoryBlogForm
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+from .models import Blog_post, Comment
+from .forms import BlogPostForm, CategoryBlogForm, CommentForm
 # Create your views here.
 
 def blog_posts(request):
@@ -34,6 +36,23 @@ def add_post(request):
     }
     return render(request, 'blog/add_blog_post.html', context)
 
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/add_commet.html'
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+    success_url = reverse_lazy('blog')
+    # fields = '__all__'
+
+# def add_comment(request):
+
+#     form = CommentForm
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'blog/add_comment.html', context)
 
 def add_category(request):
     if request.method == 'POST':

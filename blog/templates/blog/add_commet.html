@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extratitle %}Blog Comments{% endblock extratitle %}
+{% block content %}
+<div class="container pt-5">
+    <h1>Add a comment to a blog post:</h1>
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6"> 
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    {{ form.as_p}}
+                    <div>
+                        <p>
+                            <button type="submit">Add comment</button>    
+                        </p>
+                    </div>
+                </form>
+                <a href={% url 'blog' %}><button>Back</button></a>            
+            </div>
+        </div>
+    </div>
+{% endblock %}
