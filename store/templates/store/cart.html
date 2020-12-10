@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 </br></br>
+</br></br>
 <div class="container-fluid">
     <div class="text-center pb-2">
         <h1>Shopping Cart</h1>
@@ -14,25 +15,36 @@
             <i class="fas fa-arrow-left"></i><a href="{% url 'store' %}"><button class="btn btn-sm btn-success m-1">Continue Shopping</button></a>
         </div>
     </div>
+    
+    <p>Your cart total is:<strong> £{{ order.get_cart_total }}</strong> <a href="{% url 'checkout' %}"><button class="btn btn-sm btn-warning d-inline m-1">Checkout</button></a></p>
     <table class="table">
         <thead>
             <tr>
-            <th scope="col">#</th>
-            <th scope="col">Item</th>
+            <th>Items: {{ order.get_cart_items }}</th>
+            <th>Product</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
             <th scope="col">Total</th>
             </tr>
         </thead>
         <tbody>
+        {% for item in items %}
             <tr>
-            <td><img src="{% static '../media/blog_post_images/model.jpg'%}" class="img-fluid" alt="" height=200 width=200></img></td>
-            <td>6 month sub</td>
-            <td>1 <div class="pl-2 d-inline"><button><i class="fas fa-angle-down"></i></button> | <button><i class="fas fa-angle-up"></i></button></div></td>
-            <td>£50.00</td>
-            <td>£50.00</td>            
+            {% if item.product.image %}
+            <td><img src="{{item.product.image.url}}" class="img-fluid" alt="" height=200 width=200></img></td>
+            {% else %}
+            <td><img src="{% static '../media/no_image.png'%}" class="img-fluid" alt="" height=200 width=200></img></td>
+            {% endif %}
+            <td>{{item.product.name}}</td>
+            <td>{{item.quantity}}<div class="pl-2 d-inline"><a href="#"><i class="fas fa-angle-down"></i></a> | <a href="#"><i class="fas fa-angle-up"></i></a></div></td>
+            <td>£{{item.product.price}}</td>
+            <td>£{{item.get_total}}</td>            
             </tr>
+        {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'checkout' %}"><button class="btn btn-warning float-right m-1">Checkout</button></a>
+    <div class="float-right ">
+        <h3>£ {{ order.get_cart_total }}</h3>
+        <a href="{% url 'checkout' %}"><button class="btn btn-lg btn-warning d-block m-1">Checkout</button></a>
+    </div>
 {% endblock content %}

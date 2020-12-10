@@ -2,6 +2,7 @@
 {% block content %}
 {% load static %}
 </br></br>
+</br></br>
 <div class="container-fluid">
     <div class="text-center pb-2">
         <h1>Checkout</h1>
@@ -46,26 +47,35 @@
 	    </div>
         <div class="col-lg-6">
 		    <div class="box-element">
+                <a  class="btn btn-outline-dark mb-1" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
                 <table class="table">
                     <thead>
                         <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Item</th>
+                        <th>Items: {{ order.get_cart_items }}</th>
+                        <th>Product</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Price</th>
                         <th scope="col">Total</th>
                         </tr>
                     </thead>
                     <tbody>
+                    {% for item in items %}
                         <tr>
-                        <td><img src="{% static '../media/blog_post_images/model.jpg'%}" class="img-fluid" alt="" height=200 width=200></img></td>
-                        <td>6 month sub</td>
-                        <td>1 <div class="pl-2 d-inline"><a href="#"><i class="fas fa-angle-down"></i></a> | <a href="#"><i class="fas fa-angle-up"></i></a></div></td>
-                        <td>£50.00</td>
-                        <td>£50.00</td>            
+                        {% if item.product.image %}
+                        <td><img src="{{item.product.image.url}}" class="img-fluid" alt="" height=200 width=200></img></td>
+                        {% else %}
+                        <td><img src="{% static '../media/no_image.png'%}" class="img-fluid" alt="" height=200 width=200></img></td>
+                        {% endif %}
+                        <td>{{item.product.name}}</td>
+                        <td>{{item.quantity}} <div class="pl-2 d-inline"><a href="#"><i class="fas fa-angle-down"></i></a> | <a href="#"><i class="fas fa-angle-up"></i></a></div></td>
+                        <td>{{item.product.price}}</td>
+                        <td>£{{item.get_total}}</td>            
                         </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
+                <h5>Items: {{order.get_cart_items}}</h5>
+	            <h5>Total: £{{order.get_cart_total}}</h5>
             </div>
 		</div>
 	</div>

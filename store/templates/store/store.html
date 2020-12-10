@@ -2,23 +2,33 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-</br>
+</br></br>
+</br></br>
 <div class="container-fluid">
     <div class="text-center pb-2">
         <h1>My Store</h1>
     </div>
 </div> 
-<hr>      
-
+<hr>
+     
 <div class="container">
     <div class="row">
+    {% for product in products  %}
         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
             <div class="card">
-                <img src="{% static '../media/blog_post_images/model.jpg'%}" class="card-img-top" alt="...">
+                {% if product.image %}
+                <a href="#">
+                <img src="{{product.image.url}}" class="card-img-top" alt="...">
+                </a>
+                {% else %}
+                <a href="#">
+                <img src="{% static '../media/no_image.png'%}" class="card-img-top" alt="...">
+                </a>
+                {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">Product Title</h5>
-                    <p class="card-text">view that displays a form for editing an existing object, redisplaying</p> 
-                    <div class="">Price : <span class="float-right">£10.99</span></div>
+                    <h5 class="card-title">{{ product.name|slice:"30" }}</h5>
+                    <p class="card-text">{{ product.description|slice:"100" }}</p> 
+                    <div class="">Price : <span class="float-right">£{{ product.price }}</span></div>
                     <a href="#"><button class="btn btn-sm btn-primary">Add to cart</button></a>
                     <a href="#"><button class="btn btn-sm btn-success">view</button></a>
                 </div>
@@ -27,45 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="card">
-                <img src="../media/blog_post_images/model.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <a href="#"><button class="btn btn-primary">Add to cart</button></a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="card">
-                <img src="../media/blog_post_images/model.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <a href="#"><button class="btn btn-primary">Add to cart</button></a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="card">
-                <img src="../media/blog_post_images/model.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <a href="#"><button class="btn btn-primary">Add to cart</button></a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        </div>
+    {% endfor %}
     </div>
 </div>
 {% endblock content %}

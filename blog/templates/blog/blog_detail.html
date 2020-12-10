@@ -28,8 +28,8 @@
             <p class="text-muted">No comments yet.</p>
         {% else %}
             {% for comment in blog_post.comments.all %}
-                <strong>{{comment.name}} - {{comment.date_posted}}</strong>
-                {{comment.body|safe}}
+                <p><strong>{{comment.name}}</strong></p>
+                <p>{{comment.body|safe}} - <em class="text-muted">{{comment.date_posted}}</em><p>
             {% endfor %}
         {% endif %}
             <p class="text-muted"><a href="{% url 'add_comment' blog_post.pk %}">leave a comment here.</a></p>
