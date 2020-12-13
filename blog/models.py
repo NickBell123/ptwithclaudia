@@ -18,6 +18,9 @@ class Category(models.Model):
         return self.friendly_name
 
 class Blog_post(models.Model):
+    class Meta:
+        verbose_name_plural = 'Blog Posts'
+
     title = models.CharField(max_length=250)
     author = models.ForeignKey(User, on_delete=models.CASCADE) #Cascade used to remove all posts if user deleted
     category = models.CharField(max_length=250, null=True, blank=True)

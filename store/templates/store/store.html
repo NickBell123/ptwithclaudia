@@ -29,7 +29,7 @@
                     <h5 class="card-title">{{ product.name|slice:"30" }}</h5>
                     <p class="card-text">{{ product.description|slice:"100" }}</p> 
                     <div class="">Price : <span class="float-right">£{{ product.price }}</span></div>
-                    <a href="#"><button class="btn btn-sm btn-primary">Add to cart</button></a>
+                    <button data-product="{{product.id}}" data-action="add" class="update-cart btn btn-sm btn-primary btn-add">Add to cart</button>
                     <a href="#"><button class="btn btn-sm btn-success">view</button></a>
                 </div>
                 <div class="card-footer">

@@ -36,9 +36,14 @@
             <td><img src="{% static '../media/no_image.png'%}" class="img-fluid" alt="" height=200 width=200></img></td>
             {% endif %}
             <td>{{item.product.name}}</td>
-            <td>{{item.quantity}}<div class="pl-2 d-inline"><a href="#"><i class="fas fa-angle-down"></i></a> | <a href="#"><i class="fas fa-angle-up"></i></a></div></td>
+            <td>{{item.quantity}}
+                <div class="pl-2 d-inline">
+                    <a href="#"><i data-product="{{item.product.id}}" data-action="sub" class="fas fa-angle-down update-cart"></i></a> | 
+                    <a href="#"><i data-product="{{item.product.id}}" data-action="add" class="fas fa-angle-up update-cart"></i></a>
+                </div>
+            </td>
             <td>£{{item.product.price}}</td>
-            <td>£{{item.get_total}}</td>            
+            <td>{{item.get_total}}</td>            
             </tr>
         {% endfor %}
         </tbody>
