@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
+import datetime
 # from django.views.decorators.csrf import csrf_exempt
 from .models import *
 
@@ -81,4 +82,32 @@ def updateItem(request):
     
     if orderItem.quantity <= 0:
         orderItem.delete()
+    return JsonResponse('Item was added', safe=False)
+
+
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, order_complete=False)
+        total = float(data['form']['total'])
+        order.transaction_id = transaction_id
+        
+        if total == float(order.get_cart_total):
+            order.complter = True
+        order.save()
+
+        if order.shipping == True:
+            ShippingDetails.objects.create(
+                customer=customer,
+                order=order,
+                address=data['shipping']['address'],
+                city=data['shipping']['city'],
+                state=data['shipping']['state'],
+                zipcode=data['shipping']['zipcode'],
+            )
+    else:
+        print('uesr is not logged in.')
     return JsonResponse('Item was added', safe=False)

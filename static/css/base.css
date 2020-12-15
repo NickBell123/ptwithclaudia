@@ -1,14 +1,31 @@
 html {
     height: 100%;
 }
-
-#topnav {
-    background-color: whitesmoke;
+/* only need for home page must move */
+.carousel-caption {
+    top: 300px
 }
 
 .carousel-inner {
     max-height: 70vh;
 }
- body {
-     padding-top: 110px;
- }
+
+body {
+    height: calc(100vh-108px);
+    font-family: 'Noto Sans', sans-serif;
+   
+}
+
+.nav-link {
+    font-size: larger;
+    padding: 0px;
+}
+
+#topnav {
+    background-color: whitesmoke;
+}
+
+/* .carousel-inner {
+    max-height: 70vh;
+}
+  */
