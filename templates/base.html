@@ -53,84 +53,80 @@
     {% endblock extrajs %}
     
     <title>PTwithClaudia {% block extratitle %}{% endblock extratitle %}</title>
-  </head>
-  <body>
-  
-    <header class="container-fluid fixed-top">
-      <nav id="topnav" class="row pt-lg-2 d-none d-lg-flex">
-          <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
-              <a href="{% url 'home' %}" class="nav-link main-logo-link">
-                  <img class="d-block w-75" src="{% static '../media/ptcb_logo3.png' %}" alt="First slide">
-              </a>
-          </div>
-          <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-             <ul class="nav d-flex justify-content-between mt-3">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'home' %}">
-                        <div class="text-center">
-                            <i class="fas fa-home fa-lg"></i>
-                            <p>Home</p>
-                        </div>
+    </head>
+    <body>
+        <header class="container-fluid bg-light fixed-top">
+            <div class="row d-none d-lg-flex">
+                <div class="col-4 mt-2">
+                    <a href="{% url 'home' %}" class="">
+                        <img class="" src="{% static '../media/ptcb_logo3.png' %}" alt="First slide">
                     </a>
-                </li>
-                <li class="nav-item"> 
-                    <a class="nav-link" href="{% url 'store' %}">
-                        <div class="text-center">
-                            <i class="fas fa-store fa-lg"></i>
-                            <p>My Store</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{% url 'blog' %}">
-                        <div class="text-center">
-                            <i class="fas fa-podcast fa-lg"></i>
-                            <p>Blog</p>
-                        </div>
-                    </a>
-                </li>
-            </ul> 
-          </div>
-          <div class="col-12 col-lg-4 my-auto py-1">
-              <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-                  <li class="list-inline-item dropdown mr-lg-4">
-                      <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <div class="text-center">
-                              <div><i class="fas fa-user fa-lg"></i></div>
-                              <p class="my-0">My Account</p>
-                          </div>
-                      </a>
-                      <div class="dropdown-menu border-0" aria-labelledby="user-options">
-                          {% if request.user.is_authenticated %}
-                              {% if request.user.is_superuser %}
-                                <a href="" class="dropdown-item">Product Management</a>
-                              {% endif %}
-                              <a href="" class="dropdown-item">My Profile</a>
-                              <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-                          {% else %}
-                              <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                              <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
-                          {% endif %}
-                      </div>
-                  </li>
-                  <li class="list-inline-item mr-lg-1">
-                      <a class="{% if order.get_cart_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'cart' %}">
-                          <div class="text-center">
-                              <div><i class="fas fa-shopping-bag fa-lg"></i></div>
-                              <p class="my-0">
-                                  {% if order.get_cart_total %}
-                                      £{{ order.get_cart_total|floatformat:2 }}
-                                  {% else %}
-                                      $0.00
-                                  {% endif %}
-                              </p>
-                          </div>
-                      </a>
-                  </li>
-              </ul>
-          </div>
-      </nav>
-    </header>
+                </div>
+                <div class="col-4 my-auto">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <a href="" class="" type="submit"><i class="fas fa-search ml-3 mt-1"></i></a>
+                    </form>
+                </div>
+                <div class="col-4 my-auto">
+                    <ul class="list-inline list-unstyled float-right">
+                        <li class="list-inline-item dropdown ">
+                            <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="text-center">
+                                    <div><i class="fas fa-user fa-lg"></i></div>
+                                    <p class="my-0">My Account</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                                {% if request.user.is_authenticated %}
+                                    {% if request.user.is_superuser %}
+                                        <a href="" class="dropdown-item">Product Management</a>
+                                    {% endif %}
+                                    <a href="" class="dropdown-item">My Profile</a>
+                                    <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                                {% else %}
+                                    <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                                    <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                                {% endif %}
+                            </div>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="{% if order.get_cart_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'cart' %}">
+                                <div class="text-center">
+                                    <div><i class="fas fa-shopping-bag fa-lg"></i></div>
+                                    <p class="my-0">
+                                        {% if order.get_cart_total %}
+                                            £{{ order.get_cart_total|floatformat:2 }}
+                                        {% else %}
+                                            $0.00
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8 offset-2 w-100 d-flex justify-content-around">
+                    <ul class="list-inline list-unstyled">
+                        <li class="list-inline-item px-2">
+                            <a href="{% url 'home' %}"><i class="fas fa-home fa-lg"> Home</i></a>
+                        </li>
+                        <li class="list-inline-item px-2">
+                            <a href="{% url 'store' %}"><i class="fas fa-store fa-lg"> Store</i></a>
+                        </li>
+                        <li class="list-inline-item px-2">
+                            <a href="{% url 'blog' %}"><i class="fas fa-podcast fa-lg"> Blog</i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+    
+    
+    
+
   
     {% block content %}
     {% endblock content %} 
