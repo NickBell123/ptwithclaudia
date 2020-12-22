@@ -64,8 +64,14 @@
                 </div>
                 <div class="col-4 my-auto">
                     <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <a href="" class="" type="submit"><i class="fas fa-search ml-3 mt-1"></i></a>
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="form-control btn btn-black border border-black rounded-0" type="submit">
+                                <span class="icon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </button>
+                        </div>
                     </form>
                 </div>
                 <div class="col-4 my-auto">
@@ -108,7 +114,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-8 offset-2 w-100 d-flex justify-content-around">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light w-100 mx-auto">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-nav" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    {% include 'includes/site_nav.html' %}
+                </nav>
+            </div>
+        </header>
+    
+     {% comment %} <div class="col- offset-2 w-100 d-flex justify-content-around">
                     <ul class="list-inline list-unstyled">
                         <li class="list-inline-item px-2">
                             <a href="{% url 'home' %}"><i class="fas fa-home fa-lg"> Home</i></a>
@@ -121,11 +136,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-        </header>
-    
-    
-    
+     {% endcomment %}
 
   
     {% block content %}
