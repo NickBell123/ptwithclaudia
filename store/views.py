@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 import json
 import datetime
@@ -25,6 +25,14 @@ def store_view(request):
         }
     return render(request, 'store/store.html', context)
 
+
+def product_view(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    
+    context = {
+        'product': product,
+    }
+    return render(request, 'store/product_view.html', context)
 
 def cart_view(request):
     """ A veiw for the blog posts page """

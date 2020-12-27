@@ -2,6 +2,11 @@ html {
     height: 100%;
 }
 
+body {
+    height: calc(100% - 164px);
+    font-family: 'Noto Sans', sans-serif;  
+}
+
 a {
     color: black;
 }
@@ -12,11 +17,7 @@ a {
     right: 0px;
 }
 
-body {
-   
-    font-family: 'Noto Sans', sans-serif;
-   
-}
+
 
 /* from Bulma */
 .icon {
@@ -25,6 +26,10 @@ body {
     justify-content: center;
     height: 1.5rem;
     width: 1.5rem;
+}
+
+.card-img-top {
+    height: 20vh;
 }
 
 /* .nav-link {

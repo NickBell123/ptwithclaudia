@@ -3,14 +3,61 @@
 {% load static %}
 {% block content %}
 <br><br><br><br>
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <div class="text-center pb-2">
         <h1>My Store</h1>
     </div>
 </div> 
 <hr>
-     
-<div class="container">
+
+<div class="container products-wrapper">
+    <div class="row">
+    {% for product in products  %}
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2">
+            <div class="card w-100 border-0" >
+                {% if product.image %}
+                <a href="{% url 'product_view' product.id %}">
+                <img src="{{product.image.url}}" class="card-img-top h-20" alt="...">
+                </a>
+                {% else %}
+                <a href="{% url 'product_view' product.id %}">
+                <img src="{% static '../media/no_image.png'%}" class="card-img-top h-20" alt="...">
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name|slice:"15" }}</h5>
+                    <p class="card-text">{{ product.description|slice:"40" }}...</p>
+                </div>
+                <div class="card-footer">    
+                    <div class="">Price : <span class="float-right">£{{ product.price }}</span></div>
+                    <button class="btn btn-sm btn-primary btn-add">Add to cart</button>
+                    <a href="{% url 'product_view' product.id %}"><button class="btn btn-sm btn-success">view</button></a>
+                </div>
+            </div>
+        </div>
+        {% comment %} Loops to create <hr> on all screen sizes ased on number of items per row {% endcomment %}
+        <div class="col-12 d-sm-block d-md-none mb-4">
+            <hr>
+        </div>
+        {% if forloop.counter|divisibleby:2 %}
+        <div class="col-12 d-none d-md-block d-lg-none mb-4">
+            <hr>
+        </div>
+        {% endif %}
+        {% if forloop.counter|divisibleby:3 %}
+        <div class="col-12 d-none d-lg-block d-xl-none mb-4">
+            <hr>
+        </div>
+        {% endif %}
+        {% if forloop.counter|divisibleby:4 %}
+        <div class="col-12 d-none d-xl-block mb-4">
+            <hr>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>    
+{% comment %} <div class="container">
     <div class="row">
     {% for product in products  %}
         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
@@ -38,5 +85,5 @@
         </div>
     {% endfor %}
     </div>
-</div>
+</div> {% endcomment %}
 {% endblock content %}

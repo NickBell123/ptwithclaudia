@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br><br><br>
+<div class="container-fluid mt-5">
+    <div class="text-center pb-2">
+        <h1>Product: {{product.name}}</h1>
+    </div>
+</div> 
+<hr>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-12 col-md-6 my-auto">
+            {% if product.image %}
+            <a href="{{ product.image.url }}" target="_blank">
+                <img src="{{product.image.url}}" class="card-img-top img-fluid w-auto" alt="{{product.name}}">
+            </a>
+            {% else %}
+            <a href="{% url 'product_view' product.id %}">
+                <img src="{% static '../media/no_image.png'%}" class="card-img-top" alt="...">
+            </a>
+            {% endif %}
+        </div>
+        <div class="col-12 col-md-6 my-auto">
+            <strong>{{product.name}}</strong>
+            <p class="mt-5">{{product.description}}</p>
+            <div class="card-footer">    
+                <div class="mt-2">Price : <span class="float-right">£{{ product.price }}</span></div>
+                <button class="btn btn-sm btn-primary btn-add">Add to cart</button>
+            </div>
+        <div>
+    </div>
+</div>    
+{% endblock %}
