@@ -7,10 +7,41 @@
     <div class="text-center pb-2">
         <h1>My Store</h1>
     </div>
-</div> 
+</div>
+
 <hr>
 
 <div class="container products-wrapper">
+    <div class="dropdown mb-3 btn-group">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort Products by Category
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{% url 'store' %}?category=subscriptions">Subscriptions</a>
+            <a class="dropdown-item" href="{% url 'store' %}?category=equipment">Equipment</a>
+            <a class="dropdown-item" href="{% url 'store' %}?category=books">Books</a>
+            <a class="dropdown-item" href="{% url 'store' %}">All Products</a>
+        </div>
+    </div>
+    <div class="dropdown mb-3 btn-group">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort Products by Price
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{% url 'store' %}?sort=price&direction=desc">High to Low</a>
+            <a class="dropdown-item" href="{% url 'store' %}?sort=price&direction=asc">low to High</a>
+            
+            <a class="dropdown-item" href="{% url 'store' %}">All Products</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {% if search_term or current_categories or current_sorting != 'None_None' %}
+                <span class="small"><a href="{% url 'store' %}">Clear</a></span>
+            {% endif %}
+            <p>{{products|length}} Products {% if search_term  %} found for <strong>"{{ search_term }}"</strong>{% endif %}</p>
+        <div>
+    </div>
     <div class="row">
     {% for product in products  %}
         <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2">
@@ -32,6 +63,11 @@
                     <div class="">Price : <span class="float-right">£{{ product.price }}</span></div>
                     <button class="btn btn-sm btn-primary btn-add">Add to cart</button>
                     <a href="{% url 'product_view' product.id %}"><button class="btn btn-sm btn-success">view</button></a>
+                    {% if product.category %}
+                    <p class="small mt-1">
+                        <a class="text-muted style-none" href="{% url 'store' %}?category={{product.category.name}}"><i class="fa fa-tag mr-1"></i>{{product.category.friendly_name}}</a>
+                    </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
