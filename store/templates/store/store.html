@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<br><br><br><br>
+<br><br><br><br><br><br>
 <div class="container-fluid mt-5">
     <div class="text-center pb-2">
         <h1>My Store</h1>
@@ -10,9 +10,8 @@
 </div>
 
 <hr>
-
-<div class="container products-wrapper">
-    <div class="dropdown mb-3 btn-group">
+<div class="container-fluid d-flex justify-content-center">
+       <div class="dropdown mb-3 btn-group mr-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Sort Products by Category
         </button>
@@ -23,17 +22,29 @@
             <a class="dropdown-item" href="{% url 'store' %}">All Products</a>
         </div>
     </div>
-    <div class="dropdown mb-3 btn-group">
+    <div class="dropdown mb-3 btn-group mr-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Sort Products by Price
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="{% url 'store' %}?sort=price&direction=desc">High to Low</a>
             <a class="dropdown-item" href="{% url 'store' %}?sort=price&direction=asc">low to High</a>
-            
             <a class="dropdown-item" href="{% url 'store' %}">All Products</a>
         </div>
     </div>
+    <div class="dropdown mb-3 btn-group">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort Products by Name
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{% url 'store' %}?sort=name&direction=desc">Z - A</a>
+            <a class="dropdown-item" href="{% url 'store' %}?sort=name&direction=asc">A - Z</a>
+            <a class="dropdown-item" href="{% url 'store' %}">All Products</a>
+        </div>
+    </div>
+
+</div>
+<div class="container products-wrapper">
     <div class="row">
         <div class="col-12">
             {% if search_term or current_categories or current_sorting != 'None_None' %}
@@ -65,7 +76,7 @@
                     <a href="{% url 'product_view' product.id %}"><button class="btn btn-sm btn-success">view</button></a>
                     {% if product.category %}
                     <p class="small mt-1">
-                        <a class="text-muted style-none" href="{% url 'store' %}?category={{product.category.name}}"><i class="fa fa-tag mr-1"></i>{{product.category.friendly_name}}</a>
+                        <a class="text-muted" href="{% url 'store' %}?category={{product.category.name}}"><i class="fa fa-tag mr-1"></i>{{product.category.friendly_name}}</a>
                     </p>
                     {% endif %}
                 </div>
@@ -92,34 +103,21 @@
         {% endif %}
     {% endfor %}
     </div>
-</div>    
-{% comment %} <div class="container">
-    <div class="row">
-    {% for product in products  %}
-        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="card">
-                {% if product.image %}
-                <a href="#">
-                <img src="{{product.image.url}}" class="card-img-top" alt="...">
-                </a>
-                {% else %}
-                <a href="#">
-                <img src="{% static '../media/no_image.png'%}" class="card-img-top" alt="...">
-                </a>
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name|slice:"30" }}</h5>
-                    <p class="card-text">{{ product.description|slice:"100" }}</p> 
-                    <div class="">Price : <span class="float-right">£{{ product.price }}</span></div>
-                    <button data-product="{{product.id}}" data-action="add" class="update-cart btn btn-sm btn-primary btn-add">Add to cart</button>
-                    <a href="#"><button class="btn btn-sm btn-success">view</button></a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-    </div>
-</div> {% endcomment %}
+</div>
+<div class="btt-button btn btn-outline-dark">
+    <a class="d-flex h-100 btt-btn">
+        <i class="fas fa-arrow-up my-auto mx-auto"></i>
+    </a>
+</div>   
+
 {% endblock content %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $('.btt-btn').click(function(e){
+            window.scrollTo(0,0)
+        });
+    </script>
+
+{% endblock postloadjs %}
