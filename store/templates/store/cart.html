@@ -3,6 +3,7 @@
 {% block content %}
 </br></br>
 </br></br>
+</br></br>
 <div class="container-fluid mt-5">
     <div class="text-center pb-2">
         <h1>Shopping Cart</h1>
@@ -15,12 +16,13 @@
             <i class="fas fa-arrow-left"></i><a href="{% url 'store' %}"><button class="btn btn-sm btn-success m-1">Continue Shopping</button></a>
         </div>
     </div>
-    
-    <p>Your cart total is:<strong> £{{ order.get_cart_total }}</strong> <a href="{% url 'checkout' %}"><button class="btn btn-sm btn-warning d-inline m-1">Checkout</button></a></p>
+    {% if cart_items %}
+    <p>Your cart total is:<strong> £{{  grand_total }}</strong> <a href="{% url 'checkout' %}"><button class="btn btn-sm btn-warning d-inline m-1">Checkout</button></a></p>
     <table class="table">
+    
         <thead>
             <tr>
-            <th>Items: {{ order.get_cart_items }}</th>
+            <th>Items:</th>
             <th>Product</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
@@ -28,14 +30,14 @@
             </tr>
         </thead>
         <tbody>
-        {% for item in items %}
+        {% for item in cart_items %}
             <tr>
             {% if item.product.image %}
             <td><img src="{{item.product.image.url}}" class="img-fluid" alt="" height=200 width=200></img></td>
             {% else %}
             <td><img src="{% static '../media/no_image.png'%}" class="img-fluid" alt="" height=200 width=200></img></td>
             {% endif %}
-            <td>{{item.product.name}}</td>
+            <td>{{item.product.name}}{% if item.product.has_sizes %}<p>Size: {{item.size}}{% else %}</p>{% endif %}</td>
             <td>{{item.quantity}}
                 <div class="pl-2 d-inline">
                     <a href="#"><i data-product="{{item.product.id}}" data-action="sub" class="fas fa-angle-down update-cart"></i></a> | 
@@ -49,7 +51,10 @@
         </tbody>
     </table>
     <div class="float-right ">
-        <h3>£ {{ order.get_cart_total }}</h3>
+        <h3>£ {{ grand_total }}</h3>
         <a href="{% url 'checkout' %}"><button class="btn btn-lg btn-warning d-block m-1">Checkout</button></a>
     </div>
+    {% else %}
+    <p class="lead mb-5">Your bag is empty.</p>
+    {% endif %}
 {% endblock content %}

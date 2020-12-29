@@ -82,11 +82,11 @@
                                 <div class="text-center">
                                     <div><i class="fas fa-shopping-bag fa-lg"></i></div>
                                     <p class="my-0">
-                                        {% if order.get_cart_total %}
-                                            £{{ order.get_cart_total|floatformat:2 }}
-                                        {% else %}
-                                            $0.00
-                                        {% endif %}
+                                        {% if grand_total %}
+                                        ${{ grand_total|floatformat:2 }}
+                                    {% else %}
+                                        $0.00
+                                    {% endif %}
                                     </p>
                                 </div>
                             </a>

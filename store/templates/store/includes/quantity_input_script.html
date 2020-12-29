@@ -1,0 +1,18 @@
+<script type="text/javascript">
+    
+    $('#sub-qty').click(function(e){
+        e.preventDefault();
+        let inputBox = $(this).closest('.input-group').find('.qty_input')[0];
+        let currentVal = parseInt($(inputBox).val());
+        console.log(currentVal)
+        $(inputBox).val(currentVal - 1);
+    });
+    $('#add-qty').click(function(e){
+        e.preventDefault();
+        let inputBox = $(this).closest('.input-group').find('.qty_input')[0];
+        let currentVal = parseInt($(inputBox).val());
+        console.log(currentVal)
+        $(inputBox).val(currentVal + 1);
+    });
+
+</script>
