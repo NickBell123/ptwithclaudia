@@ -129,30 +129,27 @@ def checkout_view(request):
         }
     return render(request, 'store/checkout.html', context)
 
-# @csrf_exempt
-def updateItem(request):
-    data = json.loads(request.body)
-    productId = data['productID']
-    action = data['action']
+def update_cart(request, product_id):
+    quantity = int(request.POST.get('quantity'))
+    size = None
+    if 'product_size' in request.POST:
+        size = request.POST['product_size']
+    cart = request.session.get('cart', {})
 
-    print('Product ID:', productId)
-    print('Action:', action)
-
-    customer = request.user.customer
-    product = Product.objects.get(id=productId)
-    order, created = Order.objects.get_or_create(customer=customer, order_complete=False)
-    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
-
-    if action == 'add':
-        orderItem.quantity = (orderItem.quantity + 1)
-    elif action == 'sub':
-        orderItem.quantity = (orderItem.quantity - 1)
+    if size:
+        if quantity > 0:
+            cart[product_id]['item_by_size'][size] = quantity
+        else:
+            del cart[product_id]['item_by_size'][size]
+    else:
+        if quantity > 0:
+            cart[product_id] = quantity
+        else:
+            cart.pop(product_id)
     
-    orderItem.save()
+    request.session['cart'] = cart
+    return redirect(reverse('cart'))
     
-    if orderItem.quantity <= 0:
-        orderItem.delete()
-    return JsonResponse('Item was added', safe=False)
 
 
 def processOrder(request):

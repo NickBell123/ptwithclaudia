@@ -1,18 +1,25 @@
 <script type="text/javascript">
-    
-    $('#sub-qty').click(function(e){
+  
+    $('.sub-qty').click(function(e){
         e.preventDefault();
         let inputBox = $(this).closest('.input-group').find('.qty_input')[0];
         let currentVal = parseInt($(inputBox).val());
-        console.log(currentVal)
-        $(inputBox).val(currentVal - 1);
+        if(currentVal < 1){
+            $('.sub-qty').prop('disable');
+        }else{
+            $(inputBox).val(currentVal - 1);
+        }
+        
     });
-    $('#add-qty').click(function(e){
+    $('.add-qty').click(function(e){
         e.preventDefault();
         let inputBox = $(this).closest('.input-group').find('.qty_input')[0];
         let currentVal = parseInt($(inputBox).val());
-        console.log(currentVal)
-        $(inputBox).val(currentVal + 1);
+        if(currentVal > 98 ){
+            $('.add-qty').prop('disable');
+        }else{
+            $(inputBox).val(currentVal + 1);
+        }
     });
 
 </script>

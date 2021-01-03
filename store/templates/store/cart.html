@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+{% load cart_tools %}
 </br></br>
 </br></br>
 </br></br>
@@ -38,14 +39,37 @@
             <td><img src="{% static '../media/no_image.png'%}" class="img-fluid" alt="" height=200 width=200></img></td>
             {% endif %}
             <td>{{item.product.name}}{% if item.product.has_sizes %}<p>Size: {{item.size}}{% else %}</p>{% endif %}</td>
-            <td>{{item.quantity}}
-                <div class="pl-2 d-inline">
-                    <a href="#"><i data-product="{{item.product.id}}" data-action="sub" class="fas fa-angle-down update-cart"></i></a> | 
-                    <a href="#"><i data-product="{{item.product.id}}" data-action="add" class="fas fa-angle-up update-cart"></i></a>
-                </div>
+            <td>
+                <form class="update-form" action="{% url 'update_cart' item.product.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                    {% if product.category.name != 'subscriptions' %}
+                        <div class="col-12">                           
+                            <div class="form-group">
+                                <div class="input-group">
+                                <input class="form-control qty_input" type="number"
+                                        name="quantity" value="{{item.quantity}}" min="1" max="99"
+                                        data-item_id="{{ item.product.id }}"
+                                        id="id_qty_{{ item.product.id }}">
+                                    <div class="my-auto ml-2 input-group-append">
+                                        <div>
+                                        <button class="border-0 sub-qty" data-product="{{item.product.id}}"><i class="fas fa-angle-down"></i></button> | 
+                                        <button class="border-0 add-qty" data-product="{{item.product.id}}"><i class="fas fa-angle-up"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    {% endif %}
+                    {% if item.product.has_sizes %}
+                        <input type="hidden" name="product_size" value="{{ item.size }}">
+                    {% endif %}
+                </form>
+                <a class="update-link text-info mr-5"><small>Update</small></a>
+                <a class="remove-item text-danger ml-5" id="remove_{{ item.item_id }}" data-product-size="{{ item.size }}"><small>Remove</small></a>
             </td>
             <td>£{{item.product.price}}</td>
-            <td>{{item.get_total}}</td>            
+            <td>£{{item.product.price |calc_sub:item.quantity}}</td>            
             </tr>
         {% endfor %}
         </tbody>
@@ -58,3 +82,30 @@
     <p class="lead mb-5">Your bag is empty.</p>
     {% endif %}
 {% endblock content %}
+{% block postloadjs %}
+    {{ block.super }}
+    {% include 'store/includes/quantity_input_script.html' %}
+
+<script type="text/javascript">
+// Update quantity on click
+    $('.update-link').click(function(e) {
+        let form = $(this).closest('.update-form');       
+        form.submit();
+    })
+    
+    {% comment %} // Remove item and reload on click
+    $('.remove-item').click(function(e) {
+        var csrfToken = "{{ csrf_token }}";
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var size = $(this).data('product-size');
+        var url = `/store/remove/${itemId}/`;
+        var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
+        console.log(itemId)
+        $.post(url, data)
+            .done(function() {
+                location.reload();
+            });
+    }) {% endcomment %}
+</script>
+    
+{% endblock postloadjs %}
